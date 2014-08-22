@@ -1,0 +1,127 @@
+﻿algoritmo "pilha"
+// Autor  : Jairo Matos
+// Versão :0.0.1
+// Seção de Declarações
+var
+pilha:vetor[1..5] de inteiro
+topo, valor, acao :inteiro
+
+//Checa se a pilha está vazia
+funcao pilhavazia:logico
+inicio
+se(topo =0) entao
+   retorne verdadeiro
+senao
+   retorne falso
+fimse
+fimfuncao
+
+//Checa se a pilha está cheia
+funcao pilhacheia:logico
+inicio
+se(topo =5) entao
+   retorne verdadeiro
+senao
+   retorne falso
+fimse
+fimfuncao
+
+//Adiciona um número na pilha
+funcao empilhar:logico
+inicio
+se pilhacheia entao
+   retorne falso
+senao
+   topo:=topo+1
+   pilha[topo]:=valor
+   retorne verdadeiro
+fimse
+fimfuncao
+
+//Remove o mais novo da pilha
+funcao desempilhar:logico
+inicio
+se pilhavazia entao
+   retorne falso
+senao
+   valor:=pilha[topo]
+   topo:=topo-1
+   retorne verdadeiro
+fimse
+fimfuncao
+
+
+//Sistema para mostrar a pilha na ordem do mais novo
+procedimento mostrarpilha
+var i :inteiro
+inicio
+se pilhavazia entao
+   escreval(" ")
+   escreval("Erro no tenho pilha para mostrar :(")
+senao
+   para i:= 1 ate topo faca
+      escreva(pilha[topo-i+1])
+   fimpara
+fimse
+
+
+fimprocedimento
+
+inicio
+
+repita
+   escreval(" ")
+   escreval("Escolha uma opção")
+   escreval("1 para empilhar")
+   escreval("2 para desempilhar")
+   escreval("3 para mostrar a pilha")
+   escreval("Número negativo para sair")
+   leia(acao)
+   escolha acao
+
+      //Caso 1 ira empilhar se possível
+   caso 1
+      limpatela
+      escreval(" ")
+      escreval("Digite um número que deseja empilhar ")
+      leia(valor)
+
+      se empilhar entao
+         escreval(" ")
+         escreval("Sucesso ")
+         escreval("Foi empilhar o número ", pilha[topo])
+      senao
+         escreval("Erro pilha cheia")
+      fimse
+
+      //Caso 2 ira desempilhar se possível
+   caso 2
+      limpatela
+      escreval(" ")
+      escreval("Desempilhar ")
+      se desempilhar() entao
+         escreval(" ")
+         escreval("Sucessor foi removido o número", valor)
+      senao
+         escreval(" ")
+         escreval("Erro pilha vazia")
+      fimse
+
+      //Mostra os elementos da pila em ordem do mais novo
+   caso 3
+      mostrarpilha()
+
+      //Mensagem de erro Opção invalida
+   outrocaso
+      limpatela
+      se(acao>=0)entao//Opção só é invalida se for maior que 0 pois menor fecha o programa
+         escreval("Opção infalida")
+      fimse
+
+   fimescolha
+
+ate acao<0 //Para o sistema se o número for negativo
+fimrepita
+
+fimalgoritmo
+

@@ -1,0 +1,162 @@
+﻿algoritmo "fila"
+//Autor : Jairo Matos
+//Versão : 0.0.1
+//Removido o procedimento inicializafila
+//Variável "cauda" recebe zero no começo
+var
+fila:vetor[1..5] de inteiro
+cabeca, cauda, qtde, valor, acao:inteiro
+
+//Sistema que checa se a fila esta Vazia
+funcao filavazia :logico
+inicio
+se(qtde=0)entao
+   retorne verdadeiro
+senao
+   retorne falso
+fimse
+fimfuncao
+
+
+//Sistema que checa se a fila esta cheia
+funcao filacheia :logico
+inicio
+se (qtde=5)entao
+   retorne verdadeiro
+senao
+   retorne falso
+fimse
+fimfuncao
+
+//Sistema de enfileiramento
+//Corrigido o da apostila apresenta pois apresenta bug
+funcao enfileirar:logico  //Removido a variável "elemento"
+inicio
+se filacheia entao
+   retorne falso
+senao
+   // fila[cauda]:=elemento estar no local errado foi realocado para baixo
+   se cauda<5 entao
+      cauda:=cauda+1
+   senao
+      cauda := 1
+   fimse
+
+   fila[cauda]:= valor// Novo local para fila[cauda]:=elemento
+   // A variável "elemento" foi trocada pela variável "valor" para evitar erros
+   //e aperfeiçoar o programa
+   qtde := qtde+1
+   retorne verdadeiro
+fimse
+fimfuncao
+
+//Sistema de Desenfileiramento
+//Correção e melhoramentos
+//FUNÇÃO desenfileirar deixa de ser inteiro para ser logico
+//variável "retorno" foi removida
+funcao desenfileirar:logico
+inicio
+se filavazia entao
+   // "-999" foi substituído por "falso"
+   retorne falso
+senao
+   // "retorno" foi substituído por "valor"
+   valor := fila[cabeca]
+   qtde := qtde-1
+   se cabeca <5 entao
+      cabeca:= cabeca+1
+   senao
+      cabeca:=1
+   fimse
+   // "retorno" foi substituído por "verdadeiro"
+   retorne verdadeiro
+fimse
+fimfuncao
+
+//Imprima a Fila na tela em ordem de chegada
+//Criado procedimento mostrafila
+//levei muito tempo para criar e muito erros foi removido
+//mais não esta 100%
+procedimento mostrarfila
+var i, mqtde, memoria:inteiro
+inicio
+se (filavazia) entao
+   escreval ("Erro não a ninguém na fila para ser mostrado tenta mais tarde")
+senao
+   // Não sei explicar ele ainda mais vou criar um tópico só para ele com explicação
+   repita
+      mqtde:=mqtde+1
+      se(cabeca+mqtde-1<=5)entao
+         escreva(fila[cabeca+mqtde-1])
+      senao
+         memoria:=mqtde
+         para i:=1 ate (qtde+1-memoria)faca
+            mqtde:=mqtde+1
+            escreva(fila[i])
+         fimpara
+
+      fimse
+   ate mqtde >=qtde
+fimse
+fimprocedimento
+
+//Programa
+inicio
+cabeca := 1
+repita
+   escreval(" ")
+   escreval("Escolha uma opção")
+   escreval("1 para enfileirar")
+   escreval("2 para desenfileirar")
+   escreval("3 para mostrar a fila")
+   escreval("Numero negativo para sair")
+   leia(acao)
+   escolha acao
+
+      //Caso 1 ira  a enfileirar se possível
+   caso 1
+      limpatela
+      escreval(" ")
+      escreval("Digite um numero que deseja enfileirar ")
+      leia(valor)
+
+      se enfileirar entao
+         escreval(" ")
+         escreval("Sucesso ")
+         escreval("Foi emfilerado o numero ", fila[cauda])
+      senao
+         escreval("Erro fila cheia")
+      fimse
+
+      //Caso 2 ira  a desenfileirar se possível
+   caso 2
+      limpatela
+      escreval(" ")
+      escreval("Desenfileirar ")
+      se desenfileirar() entao
+         escreval(" ")
+         escreval("Sucessor foi removido o numero", valor)
+      senao
+         escreval(" ")
+         escreval("Erro fila vazia")
+      fimse
+
+      //Mostra os elemento da fila em ordem de chegada
+   caso 3
+      mostrarfila()
+
+      //Mensage de erro Opção invalida
+   outrocaso
+      limpatela
+      se(acao>=0)entao//Opção só é invalida se for maior que 0 pois menor fecha o programa
+         escreval("Opção infalida")
+      fimse
+
+   fimescolha
+
+ate acao<0 //Para o sistema se o numero for negativo
+fimrepita
+
+
+fimalgoritmo
+
